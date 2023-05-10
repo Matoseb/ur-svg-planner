@@ -8,6 +8,8 @@ RPoint[][] pointPaths;
 float rescale = (25.4/72) / 1000; // scale factor from 72dpi to meters
 float dispscale = rescale * 1000; // display factor from meters to 1mm = 1 pixel
 boolean ignoringStyles = true;
+float orientation = 0; // degrees
+
 
 void setup(){
   size(1000, 1000); // work area is 1m x 1m
@@ -38,12 +40,13 @@ void draw(){
 
   int lineCount = 0; // simple line counter to keep track of final file size
 
-  String p = "data/file.script";
+  String p = "data/file2.script";
   ur = createWriter(p);
 
   ur.println("def Print():\n" +
     "  #set parameters\n" +
     "  global rapid_ms = 0.25\n" + // 0.25m/s
+    "  global orientation = d2r("+orientation+")\n" + // 0.25m/s
     "  global feed_ms = 0.01\n" + // 0.01m/s
     "  global accel_ms = 0.25\n" + // 0.25m/ss
     "  global blend_radius_m = 0.005\n" + // blend 5mm in corners to prevent stopping at each points
@@ -58,8 +61,7 @@ void draw(){
   noFill();
   beginShape();
 
-   float startAngle = radians(-180);
-   float endAngle = radians(180);
+  
    float zAngle;
 
   // loop through all paths of the SVG
@@ -71,8 +73,11 @@ void draw(){
       // set digital output 1 to HIGH if we need to turn on some device (solenoid, valve, servo..)
       ur.println("  set_standard_digital_out(1,True)");
       // move above start of path
-       
-      zAngle = startAngle;
+
+      RPoint currP = pointPaths[i][0];
+      RPoint nextP = pointPaths[i][1];
+      zAngle = atan2(nextP.y - currP.y, nextP.x-currP.x);
+      
       
       ur.println("  movel(pose_trans(feature, p["+pointPaths[i][0].x*rescale+","+pointPaths[i][0].y*rescale+",-approach,0,0,"+ zAngle +"]), accel_ms, rapid_ms, 0, blend_radius_m)");
       lineCount+=2;
@@ -82,7 +87,7 @@ void draw(){
       // draw circle to indicate start position
       ellipse(pointPaths[i][pointPaths[i].length-1].x*dispscale, pointPaths[i][pointPaths[i].length-1].y*dispscale, 3, 3);
 
-
+      
      
 
       // loop through all points from path
@@ -90,10 +95,8 @@ void draw(){
         
         // convert RPoint to PVector
       
-        RPoint currP = pointPaths[i][j];
-        RPoint nextP = pointPaths[i][j+1];
-
-        if(j < pointPaths[i].length-2) zAngle = atan2(nextP.y - currP.y, nextP.x-currP.x);
+        currP = pointPaths[i][j];
+        nextP = pointPaths[i][j+1];
         // draw segment
         vertex(currP.x*dispscale, currP.y*dispscale);
 
@@ -101,22 +104,17 @@ void draw(){
         // zAngle = lerp(startAngle, endAngle, amt);
 
         // go through point
-        ur.println("  movel(pose_trans(feature, p["+currP.x*rescale+","+currP.y*rescale+",0,0,0,"+ zAngle +"]), accel_ms, feed_ms, 0, blend_radius_m)");
+        ur.println("  movel(pose_trans(feature, p["+currP.x*rescale+","+currP.y*rescale+",0,0,0,"+ zAngle +" + orientation]), accel_ms, feed_ms, 0, blend_radius_m)");
         lineCount++;
         
         push();
         stroke(200);
         translate(currP.x*dispscale, currP.y*dispscale);
-        rotate(zAngle);
+        rotate(zAngle + radians(orientation));
         line( 0, 0, 0, 10);
         pop();
         
       }
-
-
-      
-
-      zAngle = endAngle;
 
       // finish segment
       endShape();
