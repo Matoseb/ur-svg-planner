@@ -57,15 +57,23 @@ void draw(){
   noFill();
   beginShape();
 
+   float startAngle = radians(-180);
+   float endAngle = radians(180);
+   float zAngle;
+
   // loop through all paths of the SVG
   for(int i = 0; i<pointPaths.length; i++){
+    
 
     if (pointPaths[i] != null) {
       beginShape();
       // set digital output 1 to HIGH if we need to turn on some device (solenoid, valve, servo..)
       ur.println("  set_standard_digital_out(1,True)");
       // move above start of path
-      ur.println("  movel(pose_trans(feature, p["+pointPaths[i][0].x*rescale+","+pointPaths[i][0].y*rescale+",-approach,0,0,0]), accel_ms, rapid_ms, 0, blend_radius_m)");
+       
+      zAngle = startAngle;
+      
+      ur.println("  movel(pose_trans(feature, p["+pointPaths[i][0].x*rescale+","+pointPaths[i][0].y*rescale+",-approach,0,0,"+ zAngle +"]), accel_ms, rapid_ms, 0, blend_radius_m)");
       lineCount+=2;
 
       // draw starting point
@@ -74,8 +82,7 @@ void draw(){
       ellipse(pointPaths[i][pointPaths[i].length-1].x*dispscale, pointPaths[i][pointPaths[i].length-1].y*dispscale, 3, 3);
 
 
-      float startAngle = -180;
-      float endAngle = 180;
+     
 
       // loop through all points from path
       for(int j = 0; j<pointPaths[i].length-1; j++){
@@ -83,18 +90,20 @@ void draw(){
         vertex(pointPaths[i][j].x*dispscale, pointPaths[i][j].y*dispscale);
 
         float amt = float(j)/(pointPaths[i].length-2);
-        float zAngle = lerp(startAngle, endAngle, amt);
+        zAngle = lerp(startAngle, endAngle, amt);
 
         // go through point
-        ur.println("  movel(pose_trans(feature, p["+pointPaths[i][j].x*rescale+","+pointPaths[i][j].y*rescale+",0,0,0,"+ radians(zAngle) +"]), accel_ms, feed_ms, 0, blend_radius_m)");
+        ur.println("  movel(pose_trans(feature, p["+pointPaths[i][j].x*rescale+","+pointPaths[i][j].y*rescale+",0,0,0,"+ zAngle +"]), accel_ms, feed_ms, 0, blend_radius_m)");
         lineCount++;
       }
+      
+      zAngle = endAngle;
 
       // finish segment
       endShape();
       // set digital output 1 to LOW to turn off whatever device might be plugged in
       ur.println("  set_standard_digital_out(1,False)");
-      ur.println("  movel(pose_trans(feature, p["+pointPaths[i][pointPaths[i].length-1].x*rescale+","+pointPaths[i][pointPaths[i].length-1].y*rescale+",-approach,0,0,0]), accel_ms, rapid_ms, 0, blend_radius_m)");
+      ur.println("  movel(pose_trans(feature, p["+pointPaths[i][pointPaths[i].length-1].x*rescale+","+pointPaths[i][pointPaths[i].length-1].y*rescale+",-approach,0,0,"+zAngle+"]), accel_ms, rapid_ms, 0, blend_radius_m)");
       lineCount+=2;
     }
   }
