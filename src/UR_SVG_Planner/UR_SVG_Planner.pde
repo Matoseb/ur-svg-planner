@@ -15,6 +15,7 @@ void setup(){
   RG.init(this);
   RG.ignoreStyles(ignoringStyles);
 
+  
   grp = RG.loadShape("smiley.svg");
 
   RG.setPolygonizer(RG.ADAPTATIVE);
@@ -95,6 +96,14 @@ void draw(){
         // go through point
         ur.println("  movel(pose_trans(feature, p["+pointPaths[i][j].x*rescale+","+pointPaths[i][j].y*rescale+",0,0,0,"+ zAngle +"]), accel_ms, feed_ms, 0, blend_radius_m)");
         lineCount++;
+        
+        push();
+        stroke(200);
+        translate(pointPaths[i][j].x*dispscale, pointPaths[i][j].y*dispscale);
+        rotate(zAngle);
+        line( 0, 10, 0, -10);
+        pop();
+        
       }
       
       zAngle = endAngle;
