@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 26.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 2834.6 2834.6" style="enable-background:new 0 0 2834.6 2834.6;" xml:space="preserve">
+<!-- Generator: Adobe Illustrator 27.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" id="Calque_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2834.6 2834.6"
+	 style="enable-background:new 0 0 2834.6 2834.6;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
+	.st1{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
 </style>
+<metadata>
+	<sfw  xmlns="&ns_sfw;">
+		<slices></slices>
+		<sliceSourceBounds  bottomLeftOrigin="true" height="2123.2" width="1943.7" x="253.8" y="398.7"></sliceSourceBounds>
+	</sfw>
+</metadata>
 <circle class="st0" cx="1417.3" cy="1417.3" r="779.7"/>
 <path class="st0" d="M1023.7,1512.2c0,0,78.8,316.6,316.6,316.6s398.2-249.1,398.2-249.1"/>
 <line class="st0" x1="981.5" y1="1534.7" x2="1068.7" y2="1489.7"/>
 <line class="st0" x1="1707.6" y1="1554.4" x2="1769.5" y2="1613.5"/>
 <line class="st0" x1="1164.5" y1="1143.6" x2="1164.5" y2="1318"/>
 <line class="st0" x1="1592.2" y1="1143.6" x2="1592.2" y2="1337.8"/>
+<path class="st1" d="M261,1446.7C278.7,615.4,798.3-56.3,844,541.9c45.6,598.2,597.8,1673.9,537.1,992.8
+	c-60.7-681.1-281.2-1634-595.4-650.6S-337.1,2447.9,996,2435.2"/>
 </svg>
