@@ -73,12 +73,20 @@ void draw(){
       // draw circle to indicate start position
       ellipse(pointPaths[i][pointPaths[i].length-1].x*dispscale, pointPaths[i][pointPaths[i].length-1].y*dispscale, 3, 3);
 
+
+      float startAngle = -180;
+      float endAngle = 180;
+
       // loop through all points from path
       for(int j = 0; j<pointPaths[i].length-1; j++){
         // draw segment
         vertex(pointPaths[i][j].x*dispscale, pointPaths[i][j].y*dispscale);
+
+        float amt = float(j)/(pointPaths[i].length-2);
+        float zAngle = lerp(startAngle, endAngle, amt);
+
         // go through point
-        ur.println("  movel(pose_trans(feature, p["+pointPaths[i][j].x*rescale+","+pointPaths[i][j].y*rescale+",0,0,0,0]), accel_ms, feed_ms, 0, blend_radius_m)");
+        ur.println("  movel(pose_trans(feature, p["+pointPaths[i][j].x*rescale+","+pointPaths[i][j].y*rescale+",0,0,0,"+ radians(zAngle) +"]), accel_ms, feed_ms, 0, blend_radius_m)");
         lineCount++;
       }
 
